@@ -1,4 +1,4 @@
-name: Zip Files
+name: Zip Files and Upload as Artifact
 
 on:
   push:
@@ -6,12 +6,17 @@ on:
       - main
 
 jobs:
-  zip:
+  zip-and-upload:
     runs-on: ubuntu-latest
     steps:
     - name: Checkout Repository
       uses: actions/checkout@v2
 
     - name: Zip Files
-      run: |
-        zip latest.zip background.js manifest.json
+      run: zip archive_name.zip background.js manifest.json
+
+    - name: Upload Zip as Artifact
+      uses: actions/upload-artifact@v2
+      with:
+        name: savespot.zip
+        path: savespot.zip
