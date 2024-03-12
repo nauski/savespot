@@ -1,20 +1,10 @@
-- name: Action Archiver
-  # You may pin to the exact commit or the version.
-  # uses: sibiraj-s/action-archiver@2f343a7eece20fe27cb9d3a8012d2c74b3030d79
-  uses: sibiraj-s/action-archiver@v1.1.2
-  with:
-    # Current working directory for the action
-    working-directory: # optional, default is 
-    # The archive format to use. Either zip or tar
-    format: # default is tar
-    # A File or directory or glob pattern to archive
-    path: # default is *
-    # Name of the output file
-    output: # default is __archive__
-    # Compress the tar archive using gzip
-    gzip: # optional
-    # Compression level for the archive
-    compression-level: # optional, default is 4
-    # Paths to ignore. Can be used when path is a directory or glob
-    ignore: # optional, default is 
-          
+name: Action Archiver
+uses: sibiraj-s/action-archiver@v1.1.2
+with:
+  working-directory: null
+  format: null
+  path: null
+  output: null
+  gzip: null
+  compression-level: null
+  ignore: null
