@@ -2,7 +2,7 @@ name: Create .zip
 on: push
 jobs:
   compress:
-    runs-on: linux
+    runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
       - name: Prepare files to archive
