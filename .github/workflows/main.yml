@@ -9,5 +9,7 @@ jobs:
       uses: thedoctor0/zip-release@0.7.5
       with:
         type: 'zip'
+        command: "mkdir -p release"
+        path: "relese/"
         filename: 'release.zip'
         exclusions: '*.git* README.md'
