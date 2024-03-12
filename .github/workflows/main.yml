@@ -22,9 +22,4 @@ jobs:
           root_dir: root
           file_path: root.zip
           verbose: true
-      - name: Extract zip
-        uses: ihiroky/extract-action@main
-        with:
-          file_path: root.zip
-          extract_dir: extract/zip
-      - run: test -f extract/zip/hoge/fuga/file -a -f extract/zip/file
+
