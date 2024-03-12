@@ -6,25 +6,35 @@ chrome.runtime.onInstalled.addListener(() => {
     });
 });
 
-chrome.contextMenus.onClicked.addListener((info, tab) => {
+chrome.runtime.onMessage.addListener((message) => {
+    if (message.downloadUrl) {
+      chrome.storage.local.get(['downloadFolder'], (result) => {
+	  const userDefinedSubfolder = result.downloadFolder ? result.downloadFolder + '/' : '';
+	  const filename = new URL(message.downloadUrl).pathname.split('/').pop();
+	  const downloadFilename = userDefinedSubfolder + filename;
+	  chrome.downloads.download({
+	      url: message.downloadUrl,
+	      filename: downloadFilename,
+	      conflictAction: 'uniquify',
+	      saveAs: false
+	  });
+      });
+  }
+});
+
+chrome.contextMenus.onClicked.addListener((info) => {
     if (info.menuItemId === "downloadToCustomFolder") {
-        chrome.storage.local.get(['downloadFolder'], (result) => {
-            const userDefinedSubfolder = result.downloadFolder || '';
-	    console.log("userDefinedSubfolder: ", userDefinedSubfolder);
-
-            const filename = new URL(info.linkUrl).pathname.split('/').pop();
-	    console.log("filename: ", filename);
-
-            const downloadFilename = userDefinedSubfolder ? `${userDefinedSubfolder}/${filename}` : filename;
-	    console.log("downloadFilename: ", downloadFilename);
-
-            chrome.downloads.download({
-                url: info.linkUrl,
-                filename: downloadFilename,
-                conflictAction: 'uniquify',
-                saveAs: false
-            });
-        });
+      chrome.storage.local.get(['downloadFolder'], (result) => {
+	  const userDefinedSubfolder = result.downloadFolder ? result.downloadFolder + '/' : '';
+	  const filename = new URL(message.downloadUrl).pathname.split('/').pop();
+	  const downloadFilename = userDefinedSubfolder + filename;
+	  chrome.downloads.download({
+	      url: message.downloadUrl,
+	      filename: downloadFilename,
+	      conflictAction: 'uniquify',
+	      saveAs: false
+	  });
+      });
     }
 });
 
