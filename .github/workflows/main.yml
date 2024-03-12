@@ -10,6 +10,6 @@ jobs:
       with:
         type: 'zip'
         command: "mkdir -p release"
-        path: "relese/"
+        path: "release/"
         filename: 'release.zip'
         exclusions: '*.git* README.md'
