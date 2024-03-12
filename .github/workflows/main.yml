@@ -1,25 +1,22 @@
 name: Create .zip
 on: push
 jobs:
-  build:
-    runs-on: ${{ matrix.os }}
-    strategy:
-      matrix:
-        os: [macos-latest, ubuntu-latest, windows-latest]
-
+  compress:
+    runs-on: linux
     steps:
       - uses: actions/checkout@v2
       - name: Prepare files to archive
         run: |
-          mkdir -p root/rel/
-          touch root/hoge/fuga/file
-          touch root/file
+          mkdir -p latest/rel/
+          cp content.js latest/rel
+          cp manifest.json latest/rel
+          
         shell: bash
 
       - name: Create zip
         uses: ./
         with:
-          root_dir: root
-          file_path: root.zip
+          root_dir: latest
+          file_path: latest.zip
           verbose: true
 
