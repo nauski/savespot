@@ -1,10 +1,30 @@
-name: Action Archiver
-uses: sibiraj-s/action-archiver@v1.1.2
-with:
-  working-directory: null
-  format: null
-  path: null
-  output: null
-  gzip: null
-  compression-level: null
-  ignore: null
+name: Create .zip
+on: push
+jobs:
+  build:
+    runs-on: ${{ matrix.os }}
+    strategy:
+      matrix:
+        os: [macos-latest, ubuntu-latest, windows-latest]
+
+    steps:
+      - uses: actions/checkout@v2
+      - name: Prepare files to archive
+        run: |
+          mkdir -p root/rel/
+          touch root/hoge/fuga/file
+          touch root/file
+        shell: bash
+
+      - name: Create zip
+        uses: ./
+        with:
+          root_dir: root
+          file_path: root.zip
+          verbose: true
+      - name: Extract zip
+        uses: ihiroky/extract-action@main
+        with:
+          file_path: root.zip
+          extract_dir: extract/zip
+      - run: test -f extract/zip/hoge/fuga/file -a -f extract/zip/file
