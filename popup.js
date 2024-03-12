@@ -13,7 +13,6 @@ const saveButton = document.getElementById('save');
   try {
     chrome.storage.local.set({downloadFolder}, () => {
     saveButton.style.borderColor = 'green';
-    console.log(`Download folder set to: ${downloadFolder}`);
     chrome.storage.local.get(['downloadFolder'], (result) => {  // update the current folder input
       if (result.downloadFolder) {
 	  currentFolder.value = result.downloadFolder;
@@ -22,6 +21,5 @@ const saveButton = document.getElementById('save');
     setTimeout(() => window.close(), 2000);});
   } catch (error){
     saveButton.style.borderColor = 'red';
-    console.error('Error saving download location:', error);
   }
 }) 
