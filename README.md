@@ -8,7 +8,6 @@ Additionally, users can customize the download location via the extension popup.
 - Right-click context menu to download files to a custom location.
 - Alternatively you can hold ctrl+shift down while clicking a link to activate the extension.
 - Popup UI for setting and viewing the current custom download folder.
-- Visual feedback on saving the custom location: green outline on success, red on error.
 - The popup displays the currently saved download location on opening.
 
 ## Installation
