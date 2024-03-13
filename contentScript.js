@@ -7,7 +7,6 @@ document.addEventListener('keydown', (event) => {
     } else if (event.key === 'Control') {
         ctrlKeyPressed = true;
     }
-  console.log("testing");
 });
 
 document.addEventListener('keyup', (event) => {
@@ -20,11 +19,17 @@ document.addEventListener('keyup', (event) => {
 
 document.addEventListener('click', (event) => {
     if (shiftKeyPressed && ctrlKeyPressed && event.target.tagName === 'A') {
-        console.log(`Activating custom download for: ${event.target.href}`);
         event.preventDefault();
 
         const downloadUrl = event.target.href;
-        chrome.runtime.sendMessage({downloadUrl});
+	chrome.storage.local.get(['downloadFolder'], (result) => {
+	  if (result.downloadFolder) {
+	      chrome.runtime.sendMessage({downloadUrl});
+            } else {
+                alert("Custom download destination is not set. Please set it in the extension's options.");
+            }
+        });
+      
     }
 });
 
