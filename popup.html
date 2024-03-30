@@ -3,14 +3,42 @@
 <head>
     <title>Download Location</title>
     <style>
-        body {
-            width: 200px;
-            padding: 10px;
+        body, html {
+          margin: 0;
+          padding: 0;
+          width: 400px; /* Set the width of the popup */
+          height: 200px; /* Set the height of the popup */
+          display: flex;
+          flex-direction: column;
+          font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+          background-color: #f7f7f7;
+          color: #333;
+          overflow: hidden; /* Hide the overflow of the body */
         }
+        header {
+          background-color: #0057b8;
+          color: #fff;
+          text-align: center;
+          padding: 10px 0;
+          font-size: 18px;
+          font-weight: bold;
+          width: 100%; /* Header takes full width */
+        }
+
+.content {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between; /* Distribute space evenly */
+  align-items: center; /* Center children horizontally */
+  padding: 10px;
+  overflow: hidden; /* Hide overflow to remove scrollbars */
+  flex-grow: 1; /* Allow content to fill the remaining space */
+}
     </style>
 </head>
 <body>
-    <div>
+  <header>OTRS Download Location</header>
+    <div class="content">
         <label for="currentFolder">Current download folder:</label>
         <input type="text" id="currentFolder" disabled>
         <label for="downloadFolder">Set download  folder:</label>
