@@ -23,3 +23,17 @@ const saveButton = document.getElementById('save');
     saveButton.style.borderColor = 'red';
   }
 }) 
+
+chrome.storage.local.get(['downloadFolder'], (result) => {
+  if (result.downloadFolder) {
+    currentFolder.value = result.downloadFolder;
+
+    chrome.tabs.query({ active: true, currentWindow: true }, (tabs) => {
+      chrome.tabs.sendMessage(tabs[0].id, { action: "getTicketId" }, (response) => {
+        if (response && response.ticketId) {
+          currentFolder.value += `/${response.ticketId}`;
+        }
+      });
+    });
+  }
+});
